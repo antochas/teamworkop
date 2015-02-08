@@ -10,7 +10,7 @@
             <form action="VerifyCredentials" method="POST">
                 <input type="text" placeholder="Username" required="" />
                 <input type="password" placeholder="7 digits min" required ="" />
-                <input type="submit" value="Login" />
+                <input type="submit" value="Login2" />
             </form>
         </div>
     </body>

@@ -19,29 +19,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author a
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login", "/VerifyCredentials","/UserDashboard"})
+@WebServlet(name = "Login", urlPatterns = {"/login", "/register","/search","/forum"})
 public class LittleMonstreusServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String URL = request.getServletPath();
-        
-            UrlController mainController = new UrlController(URL, request);
-            RequestDispatcher rd = request.getRequestDispatcher(mainController.mainControllerMethod());
-            rd.forward(request, response);
-        
-        
-    }
+
 
 
 
@@ -56,17 +37,27 @@ public class LittleMonstreusServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html");
+        PrintWriter out=response.getWriter();
+//        if(request.getServletPath().equals("/login"))
+//         out.print("test");
+        String URL = request.getServletPath();//Stores
+        UrlController mainController = new UrlController(URL, request);
+        RequestDispatcher rd = request.getRequestDispatcher(mainController.mainControllerMethod());
+        mainController = null;
+        rd.forward(request, response);
     }
 
     /**
      * Returns a short description of the servlet.
      *
-     * @return a String containing servlet description
+     * @return This is a little monster servlet, which receives all actions, stores request and request path(action) then calls a controller which in turn performs neccessary actions.
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "This is a little monster servlet, which receives all"
+                + "actions, stores request and request path(action)"
+                + "then calls a controller which in turn performs neccessary actions.";
     }// </editor-fold>
 
 }

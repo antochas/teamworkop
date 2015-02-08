@@ -5,13 +5,15 @@
  */
 package controller;
 
+import Interface.iactionHandler;
+import hibernatemodels.User;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author a
  */
-public class UrlController {
+public class UrlController implements iactionHandler{
     private String URL;
     private HttpServletRequest req;
     public UrlController(String URL, HttpServletRequest req){
@@ -21,11 +23,32 @@ public class UrlController {
         
     }
     
+    @Override
     public String mainControllerMethod(){
     
-    
-    //return "/Pages/Login/Login.jsp";
-        return "/index.html";
+        switch (URL) {
+            case "/login":
+                LoginController lc = new LoginController();
+                User ur;
+                try{
+                ur = lc.fetchUser(req.getParameter("uname"));
+                req.getSession(true).setAttribute("test", ur);}
+                catch(java.lang.NullPointerException ex){
+                
+                return "index.jsp";
+                }
+                
+                return "Pages/testpage.jsp";
+            case "/register":
+                return "";
+            case "/search":
+                return "";
+            case "/forum":
+                return "";
+            default:
+                return "/index.jsp";
+        }
+        
     } 
     
 }
